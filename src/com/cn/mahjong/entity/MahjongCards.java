@@ -18,8 +18,6 @@ public class MahjongCards {
 	private Map<Integer, List<Integer>> cardsDetail;
 
 	
-	
-	
 	public String getCardStr() {
 		return cardStr;
 	}

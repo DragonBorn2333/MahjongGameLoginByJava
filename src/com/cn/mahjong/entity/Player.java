@@ -4,7 +4,7 @@ package com.cn.mahjong.entity;
  * 
  * @author DragonBorn2333
  *
- *	Íæ¼ÒÀà
+ *	ç©å®¶ç±»
  *
  */
 public class Player {
@@ -18,15 +18,17 @@ public class Player {
 		this.isZhuang = isZhuang;
 	}
 	
-	//ÏÂ¼Ò
+	//ä¸‹å®¶
 	private Player nextPlayer;
 	
-	//ÊÖÅÆ
+	//æ‰‹ç‰Œ
 	private MahjongCards cards;
 	
-	//ÊÇ·ñÊÇ×¯¼Ò
+	//æ˜¯å¦æ˜¯åº„å®¶
 	private boolean isZhuang;
 
+	
+	
 	public Player getNextPlayer() {
 		return nextPlayer;
 	}

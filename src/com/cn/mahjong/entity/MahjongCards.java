@@ -6,15 +6,15 @@ import java.util.Map;
 /**
  * 
  * @author DargonBorn2333
- *		Âé½«ÊÖÅÆÊµÌåÀà
+ *		éº»å°†æ‰‹ç‰Œç±»
  *
  */
 public class MahjongCards {
 	
-	//ËùÓĞÊÖÅÆ×é³ÉµÄ×Ö·û´®
+	//æ‰€æœ‰æ‰‹ç‰Œæ‹¼æ¥çš„å­—ç¬¦ä¸²
 	private String cardStr;
 	
-	//ÊÖÅÆÏêÇé     key :  100 Ìõ  200 ±ı  300 Íò  400 ·ç   500 Åö  600  ³Ô  700 ¸Ü
+	//å…·ä½“çš„æ‰‹ç‰Œä¿¡æ¯     key :  100 æ¡  200 é¥¼  300 ä¸‡  400 é£   500 ç¢°  600  åƒ  700 æ 
 	private Map<Integer, List<Integer>> cardsDetail;
 
 	

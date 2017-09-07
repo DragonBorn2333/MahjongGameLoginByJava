@@ -173,8 +173,13 @@ public class MahjongLogin {
 	/**
 	 * 检查碰或杠
 	 */
-	static void checkPengOrGang(){
-		
+	static void checkPengOrGang(MahjongCards mjCards,int pengCard){
+		if(null != mjCards){
+			
+			List<Integer> cList = mjCards.getCardsDetail().get(pengCard/100);
+			
+			
+		}
 	}
 	
 }

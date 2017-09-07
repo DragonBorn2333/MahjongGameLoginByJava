@@ -14,7 +14,7 @@ public class MahjongCards {
 	//所有手牌拼接的字符串
 	private String cardStr;
 	
-	//具体的手牌信息     key :  100 条  200 饼  300 万  400 风   500 碰  600  吃  700 杠
+	//具体的手牌信息     key :  100 条  200 饼  300 万  400 风   500 碰  600  吃  700 明杠 800 暗杠 
 	private Map<Integer, List<Integer>> cardsDetail;
 
 	

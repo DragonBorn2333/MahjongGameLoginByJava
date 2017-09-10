@@ -171,15 +171,55 @@ public class MahjongLogin {
 	}
 	
 	/**
-	 * 检查碰或杠
+	 * 检查其他玩家打出的牌 是否可以 碰或杠
+	 * return 1 杠   2碰  0 都不是
 	 */
-	static void checkPengOrGang(MahjongCards mjCards,int pengCard){
+	static int checkOtherPlayerPengOrGang(MahjongCards mjCards,int pengCard){
 		if(null != mjCards){
+			List<Integer> cList = mjCards.getCardsDetail().get(pengCard/100);
+			if(cList.contains(pengCard)){
+				int pNum = 0;
+				for(int p : cList){
+					if(p==pengCard){
+						pNum++;
+					}
+				}
+				if(pNum==2){
+					return 2;
+				}else if(pNum==3){
+					return 1;
+				}
+			}
+		}
+		return 0;
+	}
+	
+	/**
+	 * 检查当前玩家抓的牌 是否可以 杠 
+	 *@return	1 暗杠  2 明杠  0 都不是
+	 */
+	static int checkThisPlayerPeng(MahjongCards mjCards,int pengCard){
+		if(null != mjCards){
+			if(mjCards.getCardsDetail().get(5).contains(pengCard)){
+				return 2;
+			}
 			
 			List<Integer> cList = mjCards.getCardsDetail().get(pengCard/100);
-			
-			
+			if(cList.contains(pengCard)){
+				int pNum = 0;
+				for(int p : cList){
+					if(p==pengCard){
+						pNum++;
+					}
+				}
+				if(pNum==3){
+					return 1;
+				}
+			}
 		}
+		
+		return 0;
 	}
+	
 	
 }

@@ -81,16 +81,31 @@ public class MahjongLogin {
 					mjCards.getCardsDetail().get(8).add(gangCard);
 				}
 			}else{
-				//自己抓上来的杠，要在碰牌堆里移除
-				List<Integer> cList = mjCards.getCardsDetail().get(5);
-				cList.remove(cList.indexOf(gangCard));
-				cList.remove(cList.indexOf(gangCard));
-				cList.remove(cList.indexOf(gangCard));
-				//加入到明杠牌堆
-				mjCards.getCardsDetail().get(7).add(gangCard);
-				mjCards.getCardsDetail().get(7).add(gangCard);
-				mjCards.getCardsDetail().get(7).add(gangCard);
-				mjCards.getCardsDetail().get(7).add(gangCard);
+				
+				if(isMingGang){
+					//自己抓上来的杠，要在碰牌堆里移除
+					List<Integer> cList = mjCards.getCardsDetail().get(5);
+					cList.remove(cList.indexOf(gangCard));
+					cList.remove(cList.indexOf(gangCard));
+					cList.remove(cList.indexOf(gangCard));
+					//加入到明杠牌堆
+					mjCards.getCardsDetail().get(7).add(gangCard);
+					mjCards.getCardsDetail().get(7).add(gangCard);
+					mjCards.getCardsDetail().get(7).add(gangCard);
+					mjCards.getCardsDetail().get(7).add(gangCard);
+				}else{
+					List<Integer> cList = mjCards.getCardsDetail().get(gangCard/100);
+					//需要移除手牌
+					cList.remove(cList.indexOf(gangCard));
+					cList.remove(cList.indexOf(gangCard));
+					cList.remove(cList.indexOf(gangCard));
+					
+					mjCards.getCardsDetail().get(8).add(gangCard);
+					mjCards.getCardsDetail().get(8).add(gangCard);
+					mjCards.getCardsDetail().get(8).add(gangCard);
+					mjCards.getCardsDetail().get(8).add(gangCard);
+				}
+				
 			}
 			
 		}
@@ -221,5 +236,12 @@ public class MahjongLogin {
 		return 0;
 	}
 	
+	
+	static void checkTing(MahjongCards mjCards){
+		int fan = 0;
+//		if(mjCards){
+//			
+//		}
+	}
 	
 }

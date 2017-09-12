@@ -236,12 +236,132 @@ public class MahjongLogin {
 		return 0;
 	}
 	
-	
+	/**
+	 * 检查是否听牌，并返回听牌
+	 * @param mjCards
+	 */
 	static void checkTing(MahjongCards mjCards){
 		int fan = 0;
-//		if(mjCards){
-//			
-//		}
+		
+		int mjArr[] = {101,102,103,104,105,106,107,108,109,
+						201,202,203,204,205,206,207,208,209,
+						301,302,303,304,305,306,307,308,309,
+						401,402,403,404,405,406,407};
+		
+		if(null != mjCards){
+			
+			List<Integer> tingList = new ArrayList<Integer>();
+			List<Integer> handList = new ArrayList<Integer>();
+			handList.addAll(mjCards.getCardsDetail().get(1));
+			handList.addAll(mjCards.getCardsDetail().get(2));
+			handList.addAll(mjCards.getCardsDetail().get(3));
+			handList.addAll(mjCards.getCardsDetail().get(4));
+			
+			//判断花色 和 1、9
+			boolean isCanWin = false;
+			boolean isCanBao = true;
+			List<Integer> allList = new ArrayList<Integer>();
+			allList.addAll(mjCards.getCardsDetail().get(1));
+			allList.addAll(mjCards.getCardsDetail().get(2));
+			allList.addAll(mjCards.getCardsDetail().get(3));
+			allList.addAll(mjCards.getCardsDetail().get(4));
+			allList.addAll(mjCards.getCardsDetail().get(5));
+			allList.addAll(mjCards.getCardsDetail().get(6));
+			allList.addAll(mjCards.getCardsDetail().get(7));
+			allList.addAll(mjCards.getCardsDetail().get(8));
+			
+			String allStr = allList.toArray().toString();
+			//花色判断
+			if(allStr.contains("10") && allStr.contains("20") && allStr.contains("30")){
+				isCanWin = true;
+			}else if(allStr.contains("10") && !allStr.contains("20") && !allStr.contains("30") || 
+					!allStr.contains("10") && allStr.contains("20") && !allStr.contains("30") ||
+					!allStr.contains("10") && !allStr.contains("20") && allStr.contains("30")){
+				//清一色
+				isCanWin = true;
+				fan++;
+			}
+			
+			if(mjCards.getCardsDetail().get(4).size()>0 ||
+					allStr.contains("101") || allStr.contains("109")||
+					allStr.contains("201") || allStr.contains("209")||
+					allStr.contains("301") || allStr.contains("309")){
+				//存在1、9
+			}else{
+				//没有1,9 的情况下只能胡1或9，并且不能摇宝
+				isCanBao = false;
+				mjArr = new int[]{101,109,201,209,301,309};
+			}
+			
+			if(isCanWin){
+				int ak = 0;
+				int sz =0;
+				//没考虑花色、和必须有暗刻
+				for(int i=0;i<mjArr.length-2;i++){
+					List<Integer> tempList = new ArrayList<Integer>();
+					tempList.addAll(handList);
+					tempList.add(mjArr[i]);
+					Collections.sort(tempList);
+					int anke = 0;
+					int shunzi = 0;
+					boolean findDui = false;
+					for(int x=0;x<tempList.size()-2;){
+						//判断是不是暗刻
+						if(tempList.get(x)==tempList.get(x+1) && tempList.get(x+1)==tempList.get(x+2)){
+							anke++;
+							int tempCard = tempList.get(x);
+							tempList.remove(tempCard);
+							tempList.remove(tempCard);
+							tempList.remove(tempCard);
+							continue;
+						}else if(tempList.get(x)==(tempList.get(x+1)+1) && tempList.get(x+1)==(tempList.get(x+2)+1) && (tempList.get(x)/100)!=4){
+							//判断是不是顺子
+							shunzi++;
+							int tempCard = tempList.get(x);
+							tempList.remove(tempCard);
+							tempList.remove(tempCard+1);
+							tempList.remove(tempCard+2);
+							continue;
+						}else if(tempList.get(x)==tempList.get(x+1) && !findDui){
+							x+=2;
+							findDui = true;
+							continue;
+						}else{
+							break;
+						}
+					}
+					
+					if(tempList.size()==2 && tempList.get(0)==tempList.get(1)){
+						//听
+						tingList.add(mjArr[i]);
+						ak=anke;
+						sz=shunzi;
+					}
+					
+				}
+				
+				//处理tingList 处理番数
+				if(tingList.size()>0){
+					//上听
+					if(mjCards.getCardsDetail().get(5).size()==0 &&
+							mjCards.getCardsDetail().get(6).size()==0 &&
+							mjCards.getCardsDetail().get(7).size()==0){
+						//站着和
+						fan++;
+					}
+					if(tingList.size()==1){
+						//单轧
+						fan++;
+					}
+					if(mjCards.getCardsDetail().get(6).size()==0 
+							&& ((handList.size()-2)/3)==ak && sz==0){
+						//飘
+						fan++;
+					}
+				}
+			}
+		}
+		
 	}
 	
 }

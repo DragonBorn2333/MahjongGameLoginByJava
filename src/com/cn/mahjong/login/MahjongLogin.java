@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import com.cn.mahjong.entity.MahjongCards;
+import com.cn.mahjong.entity.Player;
+import com.cn.mahjong.entity.WinCondition;
 
 
 /**
@@ -240,9 +242,9 @@ public class MahjongLogin {
 	 * 检查是否听牌，并返回听牌
 	 * @param mjCards
 	 */
-	static void checkTing(MahjongCards mjCards){
+	static void checkTing(Player player){
 		int fan = 0;
-		
+		MahjongCards mjCards = player.getCards();
 		int mjArr[] = {101,102,103,104,105,106,107,108,109,
 						201,202,203,204,205,206,207,208,209,
 						301,302,303,304,305,306,307,308,309,
@@ -357,6 +359,12 @@ public class MahjongLogin {
 							&& ((handList.size()-2)/3)==ak && sz==0){
 						//飘
 						fan++;
+					}
+					
+					player.setCondition(new WinCondition(tingList, fan));
+					//如果可以摇宝 更改成 可以摇宝的状态
+					if(isCanBao){
+						player.setBaoState(1);
 					}
 				}
 			}
